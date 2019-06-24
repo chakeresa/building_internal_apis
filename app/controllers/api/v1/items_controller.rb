@@ -10,6 +10,13 @@ class Api::V1::ItemsController < ApplicationController
   def create
     item = Item.new(item_params)
     item.save
+    render json: item
+  end
+
+  def update
+    item = Item.find(params[:id])
+    item.update(item_params)
+    render json: item
   end
 
   private
