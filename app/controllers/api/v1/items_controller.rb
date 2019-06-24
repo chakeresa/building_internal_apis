@@ -6,4 +6,15 @@ class Api::V1::ItemsController < ApplicationController
   def show
     render json: Item.find(params[:id])
   end
+
+  def create
+    item = Item.new(item_params)
+    item.save
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:name, :description)
+  end
 end
