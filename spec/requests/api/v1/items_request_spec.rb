@@ -52,4 +52,17 @@ describe "Items API" do
     item_from_JSON = JSON.parse(response.body)
     expect(item_from_JSON["name"]).to eq(item_params[:name])
   end
+
+  it "can destroy an item" do
+    item = create(:item)
+    name = item.name
+
+    expect{ delete "/api/v1/items/#{item.id}" }.to change(Item, :count).by(-1)
+
+    expect(response).to be_success
+    expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
+
+    item_from_JSON = JSON.parse(response.body)
+    expect(item_from_JSON["name"]).to eq(name)
+  end
 end
