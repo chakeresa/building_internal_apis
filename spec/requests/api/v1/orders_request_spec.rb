@@ -8,7 +8,7 @@ describe "Orders API" do
 
     expect(response).to be_successful
 
-    orders = JSON.parse(response.body)["data"]
+    orders = parse_api_1point0_response
 
     expect(orders.count).to eq(3)
   end
@@ -18,7 +18,7 @@ describe "Orders API" do
 
     get "/api/v1/orders/#{id}"
 
-    order = JSON.parse(response.body)["data"]
+    order = parse_api_1point0_response
 
     expect(response).to be_successful
     expect(order["id"].to_i).to eq(id)

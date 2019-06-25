@@ -8,7 +8,7 @@ describe "Items API" do
 
     expect(response).to be_successful
 
-    items = JSON.parse(response.body)["data"]
+    items = parse_api_1point0_response
 
     expect(items.count).to eq(3)
   end
@@ -18,7 +18,7 @@ describe "Items API" do
 
     get "/api/v1/items/#{id}"
 
-    item = JSON.parse(response.body)["data"]
+    item = parse_api_1point0_response
 
     expect(response).to be_successful
     expect(item["id"].to_i).to eq(id)
@@ -33,7 +33,7 @@ describe "Items API" do
     expect(response).to be_successful
     expect(item.name).to eq(item_params[:name])
 
-    item_from_JSON = JSON.parse(response.body)["data"]
+    item_from_JSON = parse_api_1point0_response
     expect(item_from_JSON["attributes"]["name"]).to eq(item_params[:name])
   end
 
@@ -49,7 +49,7 @@ describe "Items API" do
     expect(item.name).to_not eq(previous_name)
     expect(item.name).to eq(item_params[:name])
 
-    item_from_JSON = JSON.parse(response.body)["data"]
+    item_from_JSON = parse_api_1point0_response
     expect(item_from_JSON["attributes"]["name"]).to eq(item_params[:name])
   end
 
@@ -62,7 +62,7 @@ describe "Items API" do
     expect(response).to be_success
     expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
 
-    item_from_JSON = JSON.parse(response.body)["data"]
+    item_from_JSON = parse_api_1point0_response
     expect(item_from_JSON["attributes"]["name"]).to eq(name)
   end
 end

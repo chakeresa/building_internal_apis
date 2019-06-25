@@ -61,3 +61,7 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 end
+
+def parse_api_1point0_response
+  JSON.parse(response.body)["data"]
+end
